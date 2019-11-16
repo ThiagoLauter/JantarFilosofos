@@ -13,9 +13,12 @@ import java.util.concurrent.Semaphore;
  * @author aluno
  */
 public class Mesa {
-    public ArrayList<Semaphore> garfos; 
+    public static ArrayList<Semaphore> garfos;
 
-    public Mesa() {
-        this.garfos = new ArrayList<>();
-    }  
+    public Mesa(int qg) {
+        garfos = new ArrayList<Semaphore>(qg);
+        for (int i = 0; i < qg; i++) {
+            garfos.add(new Semaphore(1));
+        }
+    }
 }

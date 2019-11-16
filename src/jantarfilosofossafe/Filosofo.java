@@ -13,47 +13,56 @@ import java.util.logging.Logger;
  * @author aluno
  */
 public class Filosofo extends Thread {
-    
+
     private int idFilosofo;
 
     public void pensa() {
         System.out.println("Filosofo " + idFilosofo + " pensando...");
         try {
-            sleep((int) (Math.random() * 500));
+            sleep((int) (Math.random() * 50000));
         } catch (InterruptedException ex) {
-            Logger.getLogger(Filosofo.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Erro quando " + idFilosofo + " quis pensar");
         }
     }
 
     public void come() {
-
         int esquerda = idFilosofo;
-        int direita = (idFilosofo + 1) % .Mesa.garfos.size();
-
-        System.out.println("Filosofo " + idFilosofo + " pegando garfos");
-        Mesa.garfos[esquerda].acquire;
-        Mesa.garfos[diretita].acquire;
-        System.out.println("Filosofo " + idFilosofo + " comendo...");
+        int direita = (idFilosofo + 1) % Mesa.garfos.size();
         try {
-            sleep((int) (Math.random() * 1000));
+            System.out.println("Filosofo " + idFilosofo + " tentando pegar garfos.");
+            if (Mesa.garfos.get(esquerda).availablePermits() > 0 & Mesa.garfos.get(direita).availablePermits() > 0) {
+                Mesa.garfos.get(esquerda).acquire();
+                System.out.println("Filosofo " + idFilosofo + " pegou garfo esquerdo.");
+                Mesa.garfos.get(direita).acquire();
+                System.out.println("Filosofo " + idFilosofo + " pegou garfo direito.");
+                System.out.println("Filosofo " + idFilosofo + " comendo...");
+                sleep((int) (Math.random() * 10000));
+                System.out.println("Filosofo " + idFilosofo + " soltando garfos");
+                Mesa.garfos.get(esquerda).release();
+                Mesa.garfos.get(direita).release();
+                System.out.println("Filosofo " + idFilosofo + " soltou garfos");
+
+            } else {
+                System.out.println("Os dois garfos não estavam disponiveis");
+            }
         } catch (InterruptedException ex) {
-            Logger.getLogger(Filosofo.class.getName()).log(Level.SEVERE, null, ex);
-
+            System.out.println("filosofo " + idFilosofo + " foi interrompido");
         }
-        System.out.println("Filosofo " + idFilosofo + " soltando garfos");
-        Mesa.garfos[esquerda].acquire;
-        Mesa.garfos[diretita].rele;
-
     }
 
     public void existe() {
         while (true) {
-            pensa();
-            come();
+            this.pensa();
+            this.come();
         }
     }
-    
-    public Filosofo(int id){
-      idFilosofo = id;  
+
+    @Override
+    public void run() {
+        this.existe();
+    }
+
+    public Filosofo(int id) {
+        this.idFilosofo = id;
     }
 }
