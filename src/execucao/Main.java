@@ -14,13 +14,14 @@ import jantarfilosofossafe.Filosofo;
  * @author aluno
  */
 public class Main {
-   public static void main(String[] args) {
+   public static void main(final String[] args) {
       int qfg;
-      Scanner teclado = new Scanner(System.in);
+      final Scanner teclado = new Scanner(System.in);
       System.out.println("Digite a quantidade de garfos esta é igual a de filósofos: ");
       qfg = teclado.nextInt();
-      Mesa mesa = new Mesa(qfg);
-      Filosofo[] filosofos = new Filosofo[qfg];
+      Mesa.quantidade(qfg);
+      final Filosofo[] filosofos = new Filosofo[qfg];
+      teclado.close();
       for (int i = 0; i < qfg; i++) {
          filosofos[i] = new Filosofo(i);
       }

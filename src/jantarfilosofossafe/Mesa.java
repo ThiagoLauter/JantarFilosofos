@@ -15,7 +15,7 @@ import java.util.concurrent.Semaphore;
 public class Mesa {
     public static ArrayList<Semaphore> garfos;
 
-    public Mesa(int qg) {
+    public static void quantidade(final int qg) {
         garfos = new ArrayList<Semaphore>(qg);
         for (int i = 0; i < qg; i++) {
             garfos.add(new Semaphore(1));

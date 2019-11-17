@@ -29,7 +29,7 @@ public class Filosofo extends Thread {
         int esquerda = idFilosofo;
         int direita = (idFilosofo + 1) % Mesa.garfos.size();
         try {
-            System.out.println("Filosofo " + idFilosofo + " tentando pegar garfos.");
+            System.out.println("Filosofo " + idFilosofo + " pensou em pegar os garfos.");
             if (Mesa.garfos.get(esquerda).availablePermits() > 0 & Mesa.garfos.get(direita).availablePermits() > 0) {
                 Mesa.garfos.get(esquerda).acquire();
                 System.out.println("Filosofo " + idFilosofo + " pegou garfo esquerdo.");
@@ -43,10 +43,10 @@ public class Filosofo extends Thread {
                 System.out.println("Filosofo " + idFilosofo + " soltou garfos");
 
             } else {
-                System.out.println("Os dois garfos não estavam disponiveis");
+                System.out.println("Filosofo " + idFilosofo + " viu que um ou mais garfos não estavam disponíveis.");
             }
         } catch (InterruptedException ex) {
-            System.out.println("filosofo " + idFilosofo + " foi interrompido");
+            System.out.println("Filosofo " + idFilosofo + " foi interrompido");
         }
     }
 
