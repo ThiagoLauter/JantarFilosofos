@@ -23,7 +23,7 @@ public class Main {
       final Filosofo[] filosofos = new Filosofo[qfg];
       teclado.close();
       for (int i = 0; i < qfg; i++) {
-         filosofos[i] = new Filosofo(i);
+         filosofos[i] = new Filosofo(i+1);
       }
       for (int i = 0; i < qfg; i++) {
          filosofos[i].start();

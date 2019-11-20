@@ -5,8 +5,7 @@
  */
 package jantarfilosofossafe;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 /**
  *
@@ -17,36 +16,33 @@ public class Filosofo extends Thread {
     private int idFilosofo;
 
     public void pensa() {
-        System.out.println("Filosofo " + idFilosofo + " pensando...");
         try {
-            sleep((int) (Math.random() * 50000));
+            sleep((int) (Math.random() * 2000));
         } catch (InterruptedException ex) {
             System.out.println("Erro quando " + idFilosofo + " quis pensar");
         }
     }
 
     public void come() {
-        int esquerda = idFilosofo;
-        int direita = (idFilosofo + 1) % Mesa.garfos.size();
-        try {
-            System.out.println("Filosofo " + idFilosofo + " pensou em pegar os garfos.");
-            if (Mesa.garfos.get(esquerda).availablePermits() > 0 & Mesa.garfos.get(direita).availablePermits() > 0) {
-                Mesa.garfos.get(esquerda).acquire();
-                System.out.println("Filosofo " + idFilosofo + " pegou garfo esquerdo.");
-                Mesa.garfos.get(direita).acquire();
-                System.out.println("Filosofo " + idFilosofo + " pegou garfo direito.");
-                System.out.println("Filosofo " + idFilosofo + " comendo...");
-                sleep((int) (Math.random() * 10000));
-                System.out.println("Filosofo " + idFilosofo + " soltando garfos");
-                Mesa.garfos.get(esquerda).release();
-                Mesa.garfos.get(direita).release();
-                System.out.println("Filosofo " + idFilosofo + " soltou garfos");
+        int esquerda = idFilosofo%Mesa.garfos.size();
+        int direita = idFilosofo-1;
+        if (Mesa.garfos.get(esquerda).availablePermits() > 0 & Mesa.garfos.get(direita).availablePermits() > 0) {
+            try {
 
-            } else {
-                System.out.println("Filosofo " + idFilosofo + " viu que um ou mais garfos não estavam disponíveis.");
+                Mesa.garfos.get(esquerda).acquire();
+                Mesa.garfos.get(direita).acquire();
+                Mesa.dados.set(esquerda, idFilosofo);
+                Mesa.dados.set(direita, idFilosofo);
+                Mesa.mostarDados();
+                sleep((int) (Math.random() * 2000));
+            } catch (InterruptedException ex) {
+                System.out.println("deu ruim");
             }
-        } catch (InterruptedException ex) {
-            System.out.println("Filosofo " + idFilosofo + " foi interrompido");
+            Mesa.dados.set(esquerda, 0);
+            Mesa.dados.set(direita, 0);
+            Mesa.mostarDados();
+            Mesa.garfos.get(esquerda).release();
+            Mesa.garfos.get(direita).release();
         }
     }
 
