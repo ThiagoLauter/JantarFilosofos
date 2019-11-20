@@ -17,7 +17,7 @@ public class Main {
    public static void main(final String[] args) {
       int qfg;
       final Scanner teclado = new Scanner(System.in);
-      System.out.println("Digite a quantidade de garfos esta é igual a de filósofos: ");
+      System.out.println("Digite a quantidade de garfos(será igual a de filosofos) : ");
       qfg = teclado.nextInt();
       Mesa.quantidade(qfg);
       final Filosofo[] filosofos = new Filosofo[qfg];
