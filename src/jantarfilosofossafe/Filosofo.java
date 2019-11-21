@@ -17,7 +17,7 @@ public class Filosofo extends Thread {
 
     public void pensa() {
         try {
-            sleep((int) (Math.random() * 2000));
+            sleep((int) (Math.random() * 200));
         } catch (InterruptedException ex) {
             System.out.println("Erro quando " + idFilosofo + " quis pensar");
         }
@@ -34,7 +34,7 @@ public class Filosofo extends Thread {
                 Mesa.dados.set(esquerda, idFilosofo);
                 Mesa.dados.set(direita, idFilosofo);
                 Mesa.mostarDados();
-                sleep((int) (Math.random() * 2000));
+                sleep((int) (Math.random() * 200));
             } catch (InterruptedException ex) {
                 System.out.println("deu ruim");
             }
